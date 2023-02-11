@@ -1,13 +1,13 @@
 """
     This program sends a message to a queue on the RabbitMQ server.
-    Make tasks harder/longer-running by adding dots at the end of the message.
+    We want to stream information from a smart smoker. Read one value every half minute.
 
-    Author: Denise Case
-    Date: January 15, 2023
-
+    Author: Eden Anderson
+    Date: 2/11/2023
+    Based on Module 4 Version 3 .py program
 """
 
-# Eden Anderson / 2.4.23 / Multiple Consumers
+# Eden Anderson / 2.11.23 / Creating a Producer
 
 import pika
 import sys
@@ -69,7 +69,7 @@ socket_type = socket.SOCK_DGRAM
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
 
 # read from a file to get some fake data
-input_file = open("tasks.csv", "r")
+input_file = open("smoker-temps.csv", "r")
 
 
 # create a csv reader for our comma delimited data
@@ -91,7 +91,7 @@ for row in reader:
     print (f"Sent: {message}")
 
     # sleep for a few seconds
-    time.sleep(3)
+    time.sleep(30)
 
 
 # Standard Python idiom to indicate main program entry point
@@ -100,7 +100,7 @@ for row in reader:
 # If this is the program being run, then execute the code below
 if __name__ == "__main__":  
     # ask the user if they'd like to open the RabbitMQ Admin site
-    show_offer=False
+    show_offer=True
     offer_rabbitmq_admin_site(show_offer)
     # get the message from the command line
     # if no arguments are provided, use the default message

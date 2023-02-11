@@ -39,7 +39,7 @@ If that is all you need to get started, you can begin the project now. Apply eve
 1. Clone your repo down to your machine. - DONE
 1. In VS Code, add a .gitignore (use one from an earlier module), start working on the README.md. Create it if you didn't earlier. - DONE
 1. Add the csv data file to your repo. - DONE
-1. Create a file for your bbq producer.
+1. Create a file for your bbq producer. - DONE
 
 # Task 2. Design and Implement Your Producer
 1. Implement your bbq producer. More detailed help provided in links below. 
