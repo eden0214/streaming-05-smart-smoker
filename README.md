@@ -91,11 +91,11 @@ If that is all you need to get started, you can begin the project now. Apply eve
 * Try to help without giving away code. 
 
 # Anaconda screenshot
-## - This shows the 3 queue messages being sent simultaneously through code
+This shows the 3 queue messages being sent simultaneously through code
 
 ![Window Example](A5_Anaconda.png)
 
 # RabbitMQ screenshot
-## - This shows the 3 queue messages being sent simultaneously in graphic form
+This shows that the messages are being sent every 30 seconds.  I liked this visual.
 
 ![Window Example](A5_RabbitMQ.png)
