@@ -25,6 +25,12 @@ def offer_rabbitmq_admin_site():
         webbrowser.open_new("http://localhost:15672/#/queues")
         print()
 
+# define variables
+input_file = open("smoker-temps.csv", "r")
+queue1 = "01-smoker"
+queue2 = "02-food-A"
+queue3 = "03-food-B"
+
 def send_message(host: str, queue_name: str, message: str):
     """
     Creates and sends a message to the queue each execution.
@@ -32,7 +38,9 @@ def send_message(host: str, queue_name: str, message: str):
 
     Parameters:
         host (str): the host name or IP address of the RabbitMQ server
-        queue_name (str): the name of the queue
+        queue1 (str): the queue for the smoker temperature reading/Channel 1
+        queue2 (str): the queue for the first food temperature reading/Channel 2
+        queue3 (str): the queue for the second food temperature reading/Channel 3
         message (str): the message to be sent to the queue
     """
 
@@ -44,13 +52,18 @@ def send_message(host: str, queue_name: str, message: str):
         # use the channel to declare a durable queue
         # a durable queue will survive a RabbitMQ server restart
         # and help ensure messages are processed in order
+
+        # Make sure to delete previous messages from queues
+        ch.queue_delete(queue1)
+        ch.queue_delete(queue2)
+        ch.queue_delete(queue3)
         # messages will not be deleted until the consumer acknowledges
         ch.queue_declare(queue=queue_name, durable=True)
         # use the channel to publish a message to the queue
         # every message passes through an exchange
         ch.basic_publish(exchange="", routing_key=queue_name, body=message)
         # print a message to the console for the user
-        print(f" [x] Sent {message}")
+        print(f" [x] Sent {message} on queue")
     except pika.exceptions.AMQPConnectionError as e:
         print(f"Error: Connection to RabbitMQ server failed: {e}")
         sys.exit(1)
@@ -68,30 +81,68 @@ socket_type = socket.SOCK_DGRAM
 # use the socket constructor to create a socket object we'll call sock
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
 
-# read from a file to get some fake data
-input_file = open("smoker-temps.csv", "r")
-
-
 # create a csv reader for our comma delimited data
 reader = csv.reader(input_file, delimiter=",")
 
 for row in reader:
+    for row in reader:
     # read a row from the file
-    input_file.read
+        Time, Channel1, Channel2, Channel3 = row
+
+# send message to queue1 from Channel1
+        try:
 
     # use an fstring to create a message from our data
     # notice the f before the opening quote for our string?
-    fstring_message = f"{row}"
+            fstring_message = f"[{Time}, {Channel1}]"
     
     # prepare a binary (1s and 0s) message to stream
-    message = fstring_message.encode()
+            message = fstring_message.encode()
 
     # use the socket sendto() method to send the message
-    send_message("localhost","task_queue3",message)
-    print (f"Sent: {message}")
+            send_message("localhost","queue1",message)
+            print (f"Sent: {message} on queue1")
 
-    # sleep for a few seconds
-    time.sleep(30)
+        except ValueError:
+            pass
+
+ # send message to queue1 from Channel2
+        try:
+
+    # use an fstring to create a message from our data
+    # notice the f before the opening quote for our string?
+            fstring_message = f"[{Time}, {Channel2}]"
+    
+    # prepare a binary (1s and 0s) message to stream
+            message = fstring_message.encode()
+
+    # use the socket sendto() method to send the message
+            send_message("localhost","queue2",message)
+            print (f"Sent: {message} on queue2")
+
+        except ValueError:
+            pass
+
+# send message to queue1 from Channel3
+        try:
+
+    # use an fstring to create a message from our data
+    # notice the f before the opening quote for our string?
+            fstring_message = f"[{Time}, {Channel3}]"
+    
+    # prepare a binary (1s and 0s) message to stream
+            message = fstring_message.encode()
+
+    # use the socket sendto() method to send the message
+            send_message("localhost","queue3",message)
+            print (f"Sent: {message} on queue3")
+
+        except ValueError:
+            pass
+
+# sleep for a few seconds
+        time.sleep(30)
+
 
 
 # Standard Python idiom to indicate main program entry point
@@ -106,6 +157,8 @@ if __name__ == "__main__":
     # if no arguments are provided, use the default message
     # use the join method to convert the list of arguments into a string
     # join by the space character inside the quotes
-    message = " ".join(sys.argv[1:]) or "V3 task....."
+    message = " ".join(sys.argv[1:]) or "BBQ Producer....."
     # send the message to the queue
-    send_message("localhost","task_queue3",message)
+    send_message("localhost","queue1",message)
+
+

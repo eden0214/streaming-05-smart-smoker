@@ -19,17 +19,25 @@ smoker-temps.csv has 4 columns:
 [3] Channel3 = Food B Temp --> send to message queue "03-food-B"
 
 # Requirements
-* RabbitMQ server running
-* pika installed in your active environment
+* RabbitMQ server running - Verified working (see screenshot)
+* pika installed in your active environment - DONE
 
 RabbitMQ Admin
 * See http://localhost:15672/Links to an external site.
 
+# Prerequisites
+* RabbitMQ server
+* Localhost established
+* Installation of pika
+* Working conda environment
+* Access to .csv data file 
+* Prior python producer process from Module 4
+
 # General Design Questions
 
-1. How many producers processes do you need to read the temperatures:
-1. How many queues do we use: 
-1. How many listening callback functions do we need (Hint: one per queue): 
+1. How many producers processes do you need to read the temperatures: We need one producer (just one .py file) to read the temperatures
+1. How many queues do we use: The one producer process will create 3 queues.
+1. How many listening callback functions do we need (Hint: one per queue): We need one listening callback function for each of the 3 queues.
 
 If that is all you need to get started, you can begin the project now. Apply everything you've learned previously. 
 
@@ -42,23 +50,23 @@ If that is all you need to get started, you can begin the project now. Apply eve
 1. Create a file for your bbq producer. - DONE
 
 # Task 2. Design and Implement Your Producer
-1. Implement your bbq producer. More detailed help provided in links below. 
-1. Use the logic, approach, and structure from Module 4, version 2 and version 3.
+1. Implement your bbq producer. More detailed help provided in links below. - DONE
+1. Use the logic, approach, and structure from Module 4, version 2 and version 3. - DONE
 1. These provide a current and solid foundation for streaming analytics - modifying them to serve your purpose IS part of the assignment.
 1. Do not start from scratch - do not search for code - do not use a notebook.
 1. Use comments in the code and repo to explain your work. 
 1. Use docstring comments and add your name and date to your README and your code files. 
-1. Explain your project in the README. Include prerequisites and how to run your code. 
+1. Explain your project in the README. Include prerequisites and how to run your code. - DONE
 1. Document your project works - display screenshots of your console and maybe the RabbitMQ console. 
 1. If you only have a producer, you won't have a consumer showing messages yet, so you'll need to be creative. We'll build the consumers next.
 
 # Required Approach
-* Use your Module 4 projects (Version 2 and Version 3) as examples.
+* Use your Module 4 projects (Version 2 and Version 3) as examples. - DONE
 * Remember: No prior coding experience is required to take this course. Rely heavily on the working examples from earlier modules. 
-* The more similar your code looks to the examples - the more credit earned.
+* The more similar your code looks to the examples - the more credit earned. - DONE
 * Vastly different approaches can be expected to earn less credit not more.
 * This project should clearly build on skills and code we've already mastered. If not, let me know and more help will be provided. 
-* The primary difference should be going from 1 to 3 queue_names and from 1 to 3 callbacks. 
+* The primary difference should be going from 1 to 3 queue_names and from 1 to 3 callbacks. - DONE
 * Part of the challenge is to implement analytics using the tools and approach provided (don't significantly refactor the codebase during your first week of work!) 
 * AFTER earning credit for the assignment, THEN create and share additional custom projects. 
  
@@ -78,3 +86,13 @@ If that is all you need to get started, you can begin the project now. Apply eve
 * For a bit more guidance on the coding implementation, read Module 5.2: Guided Producer Implementation
 * Use the discussion forum when you get stuck.
 * Try to help without giving away code. 
+
+# Anaconda screenshot
+## - This shows the 3 queue messages being sent simultaneously through code
+
+![Window Example](A5_Anaconda.png)
+
+# RabbitMQ screenshot
+## - This shows the 3 queue messages being sent simultaneously in graphic form
+
+![Window Example](A5_RabbitMQ.png)
