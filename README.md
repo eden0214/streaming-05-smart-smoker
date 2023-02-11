@@ -4,7 +4,25 @@
 # streaming-05-smart-smoker
 Streaming Data 44671 Module 5 / Creating a Producer
 
-The Problem / Challenge To Solve
+# The Problem / Challenge To Solve
+
+## Using a Barbeque Smoker
+When running a barbeque smoker, we monitor the temperatures of the smoker and the food to ensure everything turns out tasty. Over long cooks, the following events can happen:
+
+1. The smoker temperature can suddenly decline.
+1. The food temperature doesn't change. At some point, the food will hit a temperature where moisture evaporates. It will stay close to this temperature for an extended period of time while the moisture evaporates (much like humans sweat to regulate temperature). We say the temperature has stalled.
+ 
+## Sensors
+We have temperature sensors track temperatures and record them to generate a history of both (a) the smoker and (b) the food over time. These readings are an example of time-series data, and are considered streaming data or data in motion.
+
+## Streaming Data
+Our thermometer records three temperatures every thirty seconds (two readings every minute). The three temperatures are:
+
+1. the temperature of the smoker itself.
+1. the temperature of the first of two foods, Food A.
+1. the temperature for the second of two foods, Food B.
+
+## Assignment Tasks
 1. Please read about the Smart Smoker - DONE
 1. Access the smoker data file here Download smoker data file here. - DONE
 
